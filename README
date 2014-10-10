@@ -1,0 +1,37 @@
+Osmocom ADS-B generator/transmitter
+(C) 2014 by Harald Welte <laforge@gnumonks.org>
+======================================================================
+adsb_gen - ADS-B / Mode-S transmitter
+
+WARNING: ONLY USE THIS TOOL WITH DIRECT COAXIAL CABLE CONNECTION BETWEEN
+TRANSMITTER AND RECEIVER OR INSIDE A SHIELDED CHAMBER. ADS-B OPERATES ON
+LICENSED SPECTRUM AND THE AUTHOR IS NOT RESPONSIBLE FOR IMPROPER USE OF
+THIS TOOL.
+
+This is a small toolset for generating Mode-S / ADS-B test data,
+intended for testing ADS-B receivers.  This includes production testing
+but also comparison of various receivers against each other in terms of
+sensitivity.
+
+This is very early PoC code and can probably do with lots of
+improvements, particularly related to the modulation depth, transmit
+power, etc.
+
+The idea is as follows:
+
+* provide a text file with ADS-B sentences in regular encoding like
+  '*8D48415F600796758E', one sentence on every line.
+
+* call adsb_gen with the synax '[-p pause_usec] <infname> <outfname>'
+  where infname is the name of the ASCII input file and outfname is the
+  binary.
+
+* the above will generate the output file whihc contains the coded ADS-B
+  data at one unsigned byte per bit at 2MS/s sample rate.
+
+* you can use the file_to_usrp2.grc gnuradio companion block to actually
+  send this file in an endless loop.
+
+* the '-p' parameter can be used to configure the gap between subsequent
+  ADS-B sentences (specified in microseconds).  The default is 1s.
+
