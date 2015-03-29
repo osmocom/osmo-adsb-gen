@@ -26,6 +26,7 @@ include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 
 list(APPEND adsbtx_sources
+	AdsbEncoder_impl.cc
 )
 
 set(adsbtx_sources "${adsbtx_sources}" PARENT_SCOPE)
@@ -35,7 +36,10 @@ if(NOT adsbtx_sources)
 endif(NOT adsbtx_sources)
 
 add_library(gnuradio-adsbtx SHARED ${adsbtx_sources})
-target_link_libraries(gnuradio-adsbtx ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
+target_link_libraries(gnuradio-adsbtx ${Boost_LIBRARIES}
+	${GNURADIO_ALL_LIBRARIES} 
+	-lvolk -losmocore
+	)
 set_target_properties(gnuradio-adsbtx PROPERTIES DEFINE_SYMBOL "gnuradio_adsbtx_EXPORTS")
 
 if(APPLE)
@@ -72,6 +76,7 @@ target_link_libraries(
   ${GNURADIO_RUNTIME_LIBRARIES}
   ${Boost_LIBRARIES}
   ${CPPUNIT_LIBRARIES}
+  -losmocore
   gnuradio-adsbtx
 )
 

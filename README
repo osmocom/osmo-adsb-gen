@@ -1,5 +1,5 @@
 Osmocom ADS-B generator/transmitter
-(C) 2014 by Harald Welte <laforge@gnumonks.org>
+(C) 2014-2015 by Harald Welte <laforge@gnumonks.org>
 ======================================================================
 adsb_gen - ADS-B / Mode-S transmitter
 
@@ -16,6 +16,10 @@ sensitivity.
 This is very early PoC code and can probably do with lots of
 improvements, particularly related to the modulation depth, transmit
 power, etc.
+
+There are two ways of using the project:
+
+1) Old style (with gnuradio before it had PDU abstraction)
 
 The idea is as follows:
 
@@ -35,3 +39,12 @@ The idea is as follows:
 * the '-p' parameter can be used to configure the gap between subsequent
   ADS-B sentences (specified in microseconds).  The default is 1s.
 
+
+2) New style (with gnuradio 3.7)
+
+* Build the gr-adsbtx module like usual using cmake/make
+
+* Run the adsb_gen.grc flow graph in gnuradio-companiion
+
+* Connect to localhost port 52002 and send ADS-B sentences
+  to it

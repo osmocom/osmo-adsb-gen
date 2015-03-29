@@ -22,5 +22,6 @@
 ########################################################################
 install(FILES
     api.h
+    AdsbEncoder.h
     DESTINATION include/adsbtx
 )

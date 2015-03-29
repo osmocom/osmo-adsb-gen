@@ -22,9 +22,9 @@
 #ifndef INCLUDED_ADSBTX_API_H
 #define INCLUDED_ADSBTX_API_H
 
-#include <gnuradio/attributes.h>
+#include <gruel/attributes.h>
 
-#ifdef gnuradio_adsbtx_EXPORTS
+#ifdef gnuradio_ADSBTX_EXPORTS
 #  define ADSBTX_API __GR_ATTR_EXPORT
 #else
 #  define ADSBTX_API __GR_ATTR_IMPORT
