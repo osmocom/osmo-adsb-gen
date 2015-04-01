@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<block>
+  <name>ADS-B Encoder</name>
+  <key>AdsbEncoder</key>
+  <category>adsbtx</category>
+  <import>import adsbtx</import>
+  <make>adsbtx.AdsbEncoder()</make>
+  <sink>
+    <name>pdus</name>
+    <type>message</type>
+    <optional>1</optional>
+  </sink>
+  <source>
+    <name>pdus</name>
+    <type>message</type>
+    <optional>1</optional>
+  </source>
+</block>
