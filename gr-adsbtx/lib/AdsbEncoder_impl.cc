@@ -69,13 +69,6 @@ namespace gr {
 	message_port_register_in(pmt::mp("pdus"));
 	set_msg_handler(pmt::mp("pdus"), boost::bind(&AdsbEncoder_impl::handle_msg, this, _1));
 
-	if (d_num_lead_in_syms) {
-		/* round up to the next byte boundary */
-		if (d_num_lead_in_syms % 8)
-			d_num_lead_in_syms += d_num_lead_in_syms % 8;
-		/* empty vector for lead-in */
-		d_lead_in_bytes = pmt::make_u8vector(d_num_lead_in_syms, 0);
-	}
     }
 
 
@@ -224,17 +217,15 @@ AdsbEncoder_impl::handle_msg(pmt::pmt_t pdu)
 
 	size_t io(0);
 	const char *sentence = (const char *) uniform_vector_elements(inpdu_bytes, io);
-	ubit_t outbuf[OUTBUF_SIZE];
+	ubit_t outbuf[2*d_num_lead_in_syms+OUTBUF_SIZE];
 	int rc;
 
-	rc = modes_encode_from_ascii(outbuf, sentence, pmt::length(inpdu_bytes));
+	memset(outbuf, 0, sizeof(outbuf));
+	rc = modes_encode_from_ascii(outbuf+d_num_lead_in_syms, sentence, pmt::length(inpdu_bytes));
 	if (rc < 0)
 		return;
 
-	if (d_lead_in_bytes)
-		message_port_pub(pmt::mp("pdus"), pmt::cons(meta, d_lead_in_bytes));
-
-	pmt::pmt_t outpdu_bytes = make_pdu_vector(blocks::pdu::byte_t, outbuf, rc);
+	pmt::pmt_t outpdu_bytes = make_pdu_vector(blocks::pdu::byte_t, outbuf, 2*d_num_lead_in_syms+rc);
 	message_port_pub(pmt::mp("pdus"), pmt::cons(meta, outpdu_bytes));
 
     }

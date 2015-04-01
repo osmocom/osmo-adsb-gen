@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='ASCII'?>
 <?grc format='1' created='3.7.5'?>
 <flow_graph>
-  <timestamp>Wed Apr  1 23:05:01 2015</timestamp>
+  <timestamp>Wed Apr  1 23:16:45 2015</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -177,41 +177,6 @@
     <param>
       <key>_coordinate</key>
       <value>(1024, 12)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>AdsbEncoder</key>
-    <param>
-      <key>id</key>
-      <value>AdsbEncoder_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(56, 391)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1256,6 +1221,45 @@
     <param>
       <key>_coordinate</key>
       <value>(696, 423)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>AdsbEncoder</key>
+    <param>
+      <key>id</key>
+      <value>AdsbEncoder_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>num_lead_in_syms</key>
+      <value>200</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(56, 391)</value>
     </param>
     <param>
       <key>_rotation</key>

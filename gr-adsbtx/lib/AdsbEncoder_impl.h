@@ -33,7 +33,6 @@ namespace gr {
     {
      private:
 	unsigned int d_num_lead_in_syms;
-	pmt::pmt_t d_lead_in_bytes;
 
      public:
 	AdsbEncoder_impl(unsigned int num_lead_in_syms);
