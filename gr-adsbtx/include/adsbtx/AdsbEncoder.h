@@ -40,7 +40,7 @@ namespace gr {
      public:
       typedef boost::shared_ptr<AdsbEncoder> sptr;
 
-      static sptr make(void);
+      static sptr make(unsigned int num_lead_in_syms);
     };
 
   } // namespace adsbtx

@@ -32,10 +32,11 @@ namespace gr {
     class AdsbEncoder_impl : public AdsbEncoder
     {
      private:
-
+	unsigned int d_num_lead_in_syms;
+	pmt::pmt_t d_lead_in_bytes;
 
      public:
-	AdsbEncoder_impl(void);
+	AdsbEncoder_impl(unsigned int num_lead_in_syms);
         ~AdsbEncoder_impl(void);
 
       // Where all the action really happens

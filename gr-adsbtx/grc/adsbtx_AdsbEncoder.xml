@@ -4,7 +4,13 @@
   <key>AdsbEncoder</key>
   <category>adsbtx</category>
   <import>import adsbtx</import>
-  <make>adsbtx.AdsbEncoder()</make>
+  <make>adsbtx.AdsbEncoder($num_lead_in_syms)</make>
+  <param>
+	  <name>Number of Lead-In Symbols</name>
+	  <key>num_lead_in_syms</key>
+	  <value>256</value>
+	  <type>int</type>
+  </param>
   <sink>
     <name>pdus</name>
     <type>message</type>

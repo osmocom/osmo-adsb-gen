@@ -50,32 +50,32 @@ namespace gr {
   namespace adsbtx {
 
     AdsbEncoder::sptr
-    AdsbEncoder::make()
+    AdsbEncoder::make(unsigned int num_lead_in_syms)
     {
       return gnuradio::get_initial_sptr
-        (new AdsbEncoder_impl());
+        (new AdsbEncoder_impl(num_lead_in_syms));
     }
 
     /*
      * The private constructor
      */
-    AdsbEncoder_impl::AdsbEncoder_impl()
+    AdsbEncoder_impl::AdsbEncoder_impl(unsigned int num_lead_in_syms)
       : block("ADS-B Payload to Symbols Encoder",
 		      io_signature::make(0, 0, 0),
-		      io_signature::make(0, 0, 0))
+		      io_signature::make(0, 0, 0)),
+	d_num_lead_in_syms(num_lead_in_syms)
     {
     	message_port_register_out(pmt::mp("pdus"));
 	message_port_register_in(pmt::mp("pdus"));
 	set_msg_handler(pmt::mp("pdus"), boost::bind(&AdsbEncoder_impl::handle_msg, this, _1));
-#if 0
+
 	if (d_num_lead_in_syms) {
 		/* round up to the next byte boundary */
 		if (d_num_lead_in_syms % 8)
 			d_num_lead_in_syms += d_num_lead_in_syms % 8;
 		/* empty vector for lead-in */
-		d_lead_in_bytes = pmt::make_u8vector(d_num_lead_in_syms/8, 0);
+		d_lead_in_bytes = pmt::make_u8vector(d_num_lead_in_syms, 0);
 	}
-#endif
     }
 
 
@@ -230,6 +230,9 @@ AdsbEncoder_impl::handle_msg(pmt::pmt_t pdu)
 	rc = modes_encode_from_ascii(outbuf, sentence, pmt::length(inpdu_bytes));
 	if (rc < 0)
 		return;
+
+	if (d_lead_in_bytes)
+		message_port_pub(pmt::mp("pdus"), pmt::cons(meta, d_lead_in_bytes));
 
 	pmt::pmt_t outpdu_bytes = make_pdu_vector(blocks::pdu::byte_t, outbuf, rc);
 	message_port_pub(pmt::mp("pdus"), pmt::cons(meta, outpdu_bytes));
